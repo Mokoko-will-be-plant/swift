@@ -101,3 +101,127 @@ function testFunction() {
 	print(hasNumber)
 }
 ```
+# Operators
+
+- 타입이 다르면 연산 불가
+- `%` 를 사용하지 못하는 경우 `.truncateRemainder(devidingBy: )` 사용
+
+# Unicode
+
+- 값의 범위 비교 하는데에 주로 사용
+- 16진수로 이루어져있음
+- `"A" === "\u{41}"`
+- `“z” === “\u{7a}”`
+
+# String
+
+- 줄바꿈 가능한 긴 문자열
+    
+    ```swift
+    let myLongStr = 
+	"""
+	hi
+	hello
+	welcome
+	"""
+    ```
+    
+- `.description` 다른 타입의 값을 string 형태로 변환
+    
+    ```swift
+    let isOn = false
+    isOn.decription
+    ```
+    
+- 문자열 안에서 변수 사용
+    
+    ```swift
+    let myNumber = 123
+    "my number is \(myNumber)"
+    ```
+    
+
+# Array
+
+- `var myNames = Array<String>()`
+- `var myAges = [Int]()`
+- 배열 값 조회의 방어코드 작성
+    
+    ```swift
+    let index = 2
+    if myNames.count > index {
+    	myNames[index]
+    }
+    ```
+    
+- 배열 값 추가
+    
+    ```swift
+    myAges.append(3)
+    myAges.append(contentsOf: [41, 23])
+    myAges = myAges + [41]
+    myAges = myAges + [41, 23]
+    
+    myAges.insert(3534, at: 2)
+    ```
+    
+- 배열 값 삭제
+    
+    ```swift
+    myAges.remove(at: 0)
+    myAges.removeAll()
+    ```
+    
+- `.enumerated()` 인덱스와 값 둘 다 조회
+    
+    ```swift
+    for (index, age) in myAges.enumerated() {}
+    ```
+    
+
+# Set (집합)
+
+- 순서(index) 개념 없음
+- 중복 불가
+- Array의 중복된 값을 없애고자 할 때 `Set()` 으로 type casting을 활용할 수 있음
+
+- Set 연산
+    
+    ```swift
+    var numbers1: Set = [1, 2, 3, 4, 5]
+    var numbers2: Set = [4, 5, 6, 7, 8]
+    
+    // 교집합
+    numbers1.intersection(numbers2)
+    
+    // 합집합
+    numbers1.union(numbers2)
+    
+    // 합집합 - 교집합 (대칭차집합)
+    numbers1.symmetricDifference(numbers2)
+    
+    // 여집합
+    numbers1.subtracting(numbers2)
+    ```
+    
+
+# Dictionary
+
+- key: value
+- 순서 개념 없음
+
+```swift
+var namesOfStreet = [String: Any]()
+
+namesOfStreet["302ro"] = "1st Street"
+namesOfStreet["305ro"] = 2
+```
+
+# Control Flow
+
+- range로 돌리는 for문
+
+```swift
+for index in 0...5 {}
+for index in 0..<5 {}
+```

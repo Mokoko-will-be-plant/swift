@@ -225,3 +225,188 @@ namesOfStreet["305ro"] = 2
 for index in 0...5 {}
 for index in 0..<5 {}
 ```
+
+# Function
+
+- 여러 개의 타입을 리턴하고자할 땐 Tuple 을 사용함
+    
+    ```swift
+    func plus(num1: Int, num2: Int) -> (String, Int) {
+    	return ("결과값은", num1 + num2)
+    }
+    
+    let sum = plus(num1: 10, num2: 20)
+    ```
+    
+- argument label을 안쓰고 싶을 때
+    
+    ```swift
+    func plus(_ num1: Int, _  num2: Int) -> Int {
+    	return num1 + num2
+    }
+    
+    let sum = plus(10, 20)
+    ```
+    
+
+# Closure
+
+- function과 굉장히 유사함.
+- 이름이 없음
+
+```swift
+let myScore = { (a: Int) -> String in
+	return "\(a)점"
+}
+myScore(20)
+```
+
+- 축약
+    - 바로 `return` 문이 실행될 경우 `return` 생략 가능
+    
+    ```swift
+    let myScore2 = { (a: Int) -> String in
+    	"\(a)점"
+    }
+    ```
+    
+    - 리턴 값의 타입이 추론될 수 있기 때문에, 반환 타입 생략 가능
+    
+    ```swift
+    let myScore3 = { (a: Int) in
+    	"\(a)점"
+    }
+    ```
+    
+    - 클로저의 리턴값을 받는 변수의 타입을 지정함으로써, 클로저 내부를 간결하게 할 수 있음
+    
+    ```swift
+    let myScore4: (Int) -> String = { a in
+    	"\(a)점"
+    }
+    ```
+    
+    - `$` 사용 (`in`을 생략할 수 있음)
+    
+    ```swift
+    let myScore5: (Int, Int, Int) -> String = {
+    	"\($0 + $1 + $2)점"
+    } 
+    ```
+    
+- 사용하는 이유
+    - 함수를 다른 함수의 매개변수로 사용해야할 때 혹은 일회용 함수를 만들어 사용해야할 때 클로저를 유용하게 쓸 수 있다.
+    - 참고
+    	[Swift4 : 클로저: Closure: #표현방식: #왜필요해?: #효율적: #간결성: #생략](https://the-brain-of-sic2.tistory.com/23)
+    
+- `.sort()`
+    
+    ```swift
+    var names = ["Chris", "Alex", "Ewa"]
+    
+    names.sort { (lhs, rhs) => Bool in
+    	return lhs > rhs
+    }
+    
+    names.sort{ $0 < $1 }
+    names.sort() { $0 < $1 }
+    names.sort(by: { $0 < $1 } )
+    names.sort(by: < )
+    ```
+    
+
+# enum
+
+- 분류 시 사용
+
+```swift
+enum BookType {
+	case comics(title: String, price: Int, year: Int)
+	case fiction(title: String, price: Int, year: Int)
+	case workbook(title: String, price: Int, year: Int)
+}
+```
+
+- `switch ... case`
+- `if case`
+- `case let`
+
+- `extension`
+    
+    ```swift
+    extension BookType {
+    	var typeName: String {
+    		case .comics: 
+    			return "comics"
+    		default:
+    			""
+    	}
+    }
+    ```
+    
+
+# Class
+
+```swift
+class MyInfo {
+
+	init(gender: GenderType) {
+		self.genderType = gender
+	}
+
+	enum GenderType {
+		case male
+		case female
+	}
+	var genderType: GenderType
+
+	var name = ""
+	var age = 0
+
+	func isAdult() -> Bool {
+		if age > 19 {
+			return true
+		}
+		return false
+	}
+}
+
+var myInfo = MyInfo(gender: .female)
+
+```
+
+- `private` 으로 설정해두면 외부에서 값 확인 및 변경 불가
+    
+    ```swift
+    private var genderType: GenderType
+    ```
+    
+
+### 상속
+
+```swift
+class GameInfo { }
+
+class Soccer: GameInfo { }
+class Baseball: GameInfo { }
+```
+
+- override
+
+```swift
+class Baeball: GameInfo {
+	override func presentScore() -> String {
+		// 새로운 로직
+	}
+}
+```
+
+- `final` : 오버라이딩 불가
+
+```swift
+class GameInfo {
+	final func presentScore() -> String {
+		return "점수"
+	}	
+}
+```

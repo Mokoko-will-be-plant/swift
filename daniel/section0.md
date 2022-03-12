@@ -561,3 +561,74 @@ class MyInfo {
 	}
 }
 ```
+
+### Initialize
+
+- Class는 내부에 프로퍼티가 옵셔널이 아니면 init값을 무조건 할당해야한다.
+- Structure는 알아서 초기값을 입력해준다.
+
+```swift
+
+class MyInfo {
+	var name: String
+	let myId: String
+	var age = 0
+	var isAdult: Bool
+
+	// 생성자 역할
+	// designated initializer
+	init(n: String, id: String) {
+		self.name = n
+		self.myID = id;
+		self.isAdult = (age > 19) ? true : false
+	}
+
+	// convenience initializer // 필수조건 - 다른 init이 하나는 있어야 한다.
+	convenience init() {
+		self.init(n: "", id: "") // 원래는 isAdult를 두어야 하는데, 생략 가능하다.
+	}
+}
+
+var myInfo1 = MyInfo(n: "kim", id: "abc")
+```
+
+### Deinitialization 메모리 해제
+
+```swift
+
+var a: Int? = 10
+a = nil
+
+class Game {
+	var score = 0
+	var name = ""
+	var round: Round?
+
+	init() {
+
+	}
+
+	deinit {
+		print("game deinit") // 메모리 해제 될때, 로그를 위해 사용하는 클로저
+	}
+}
+
+class Round {
+	week var gameInfo = Game?
+	var lastRound = 10
+	var roundTime = 20
+
+	deinit {
+		print("round deinit") // 메모리 해제 될때, 로그를 위해 사용하는 클로저
+	}
+}
+
+var game: Game? = Game()
+var round: Round? = Round()
+round?.gameInfo = game
+game?.round = round
+
+game = nil // 메모리가 해제되야 하는데 상호참조 때문에 해제가 되지 않는다!
+// 그래서 round는 game에 의존적이기 때문에 변수에 week를 걸어주면, 해제시 같이 해제가 된다.
+
+```

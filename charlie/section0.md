@@ -4,7 +4,7 @@
 
 - var(변수) / `let(상수)`
 
-### Tuples (n쌍 형태)
+## Tuples (n쌍 형태)
 
 **_Tuples 예제_**
 
@@ -31,9 +31,9 @@ data?: TYPE
 data: TYPE?
 ```
 
-### Optional
+## Optional
 
-***unwrapping***
+### unwrapping
 > optional을 벗겨내는 것을 의미
 ex )
 ```
@@ -66,3 +66,21 @@ func testFunc() {
 }
 // 값이 없으면 바로 함수 종료, 있으면 함수 실행
 ```
+
+## Operator
+
+- 타입`Int`는 정수를 나타낸다<br>`Double`은 소수점을 나타낸다 (나누기, 곱하기에 유의)
+- Int와 Double의 연산자는 당연히 불가능 <swift는 강타입 언어>
+
+***remind operator***
+- %
+> 나머지를 구하는 연산자<br> `a%b` a를 b로 나누었을때 나오는 나머지
+```
+if a%2 == 0 {
+    print("짝수")
+} else {
+    print("홀수")
+}
+```
+- % 를 사용하지 못하는 경우(Double 등...)
+> .truncateRemainder(devidingBy: N)를 사용

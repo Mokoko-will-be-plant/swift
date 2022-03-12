@@ -16,7 +16,7 @@
 - let : 상수
 - var : 변수
 
-```
+```swift
 let guestName = "john"
 var str: String = "Hello, playground"
 var myAge: Int = 0
@@ -27,7 +27,7 @@ var myAge: Int = 0
 
 - String, Int, Double, Float 등으로 선언
 
-```
+```swift
 /*
  주석을 달 수 있습니다.
 */
@@ -35,7 +35,7 @@ var myAge: Int = 0
 
 ## Boolean
 
-```
+```swift
  var isOpen = false
 
  if !isOpen { // 느낌표나 isOpen == false 사용 가능
@@ -53,7 +53,7 @@ var myAge: Int = 0
 
 > topTitle: (String, String)으로 타입이 정의됌 ex) topTitle.title 또는 topTitle.image
 
-```
+```swift
  var topTitle = (title: "메인화면", image: "mainIcon.png")
 ```
 
@@ -62,11 +62,11 @@ var myAge: Int = 0
 - ?를 사용하여 옵셔널으로 타입을 정의한다.
 - Null 대신 nil 사용
 
-```
+```swift
 var myAge: Int? = 0
 ```
 
-```
+```swift
 var a: Int? = 10
 var b: Int? = 20
 
@@ -111,7 +111,7 @@ testFunc()
 - %(remainder Operator)
 - truncatingRemainder(dividingBy: 2)를 두면, Int가 아니더라도 홀수 짝수를 구분 가능
 
-```
+```swift
 let b: Double = 33
 
 if b.truncatingRemainder(dividingBy: 2) == 0 {
@@ -123,7 +123,7 @@ if b.truncatingRemainder(dividingBy: 2) == 0 {
 
 ## String
 
-```
+```swift
 let myName = "name"
 
 for character in myName {
@@ -152,7 +152,7 @@ String(myNumber) // 위와 같음
 
 ### Array
 
-```
+```swift
 var myNames = Array<string>()
 var myAges = [Int]()
 
@@ -197,7 +197,7 @@ for (index, name) in myNames.enumerated() {
 - 출력했을 때, 순서 보장 안되게 나온다.
 - 중복된 값이 삽입이 되지 않는다.
 
-```
+```swift
 var names = Set<String>()
 
 names.insert("kim")
@@ -228,7 +228,7 @@ numbers1.subtracting(numbers2)
 - Keys, Values로 사용됌 (순서는 없다)
 - Key에 맞는 값들은 Optional이다. nil이 올 수 있다!!
 
-```
+```swift
 var namesOfStreet = [String : Any]()
 
 namesOfStreet["302ro"] = "1st Street"
@@ -246,7 +246,7 @@ for dic in namesOfStreet {
 
 ### Control Flow (흐름 제어)
 
-```
+```swift
 // 0~4까지 출력 0...5는 0부터 5까지 출력
 for index in 0..<5 {
 
@@ -272,7 +272,7 @@ switch b {
 
 ### Function
 
-```
+```swift
 let a = 20
 let b = 30
 
@@ -308,7 +308,7 @@ if inputButtonType == "+" {
 - 이름이 존재하지 않는다.
 - in 이후에 statement 들어가 있음
 
-```
+```swift
 
 // function
 func myScore(a: Int) -> String {
@@ -356,7 +356,7 @@ let myScore6: (Int, Int, Int) -> String = {
 
 > 예시
 
-```
+```swift
 
 // 조건 -> 찾는다 > 특정한 글자가 포함된 것을 찾는다.
 // 조건 -> 찾는다 -> 입력한 글자로 시작하는 첫글자를 찾는다.
@@ -396,7 +396,7 @@ find(findString: "a", condition: isStartSomeText)
 
 ```
 
-```
+```swift
 names.sort{ $0 < $1 }
 names.sort(by: { $0 < $1 } )
 names.sort(by: < )
@@ -404,7 +404,7 @@ names.sort(by: < )
 
 ### enum
 
-```
+```swift
 enum BookType {
 	case fiction(title: String, price: Int, year: Int)
 	case comics(title: String, price: Int, year: Int)
@@ -473,7 +473,7 @@ for book in books {
 
 ### Class
 
-```
+```swift
 // 항상 initialize가 되어야 한다. 안되면 에러 발생! 그래서 init 필요
 class MyInfo {
 
@@ -530,7 +530,7 @@ class Baseball: GameInfo {
 
 ### Properties
 
-```
+```swift
 class MyInfo {
 
 	// stored property (저장)

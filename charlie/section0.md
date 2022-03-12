@@ -35,7 +35,7 @@ data: TYPE?
 
 ### unwrapping
 > optional을 벗겨내는 것을 의미
-ex )
+<br>ex )
 ```
 var a: Int? = 10
 var b: Int? = 20
@@ -72,9 +72,12 @@ func testFunc() {
 - 타입`Int`는 정수를 나타낸다<br>`Double`은 소수점을 나타낸다 (나누기, 곱하기에 유의)
 - Int와 Double의 연산자는 당연히 불가능 <swift는 강타입 언어>
 
+
 ***remind operator***
+
 - %
 > 나머지를 구하는 연산자<br> `a%b` a를 b로 나누었을때 나오는 나머지
+
 ```
 if a%2 == 0 {
     print("짝수")
@@ -82,5 +85,20 @@ if a%2 == 0 {
     print("홀수")
 }
 ```
+
 - % 를 사용하지 못하는 경우(Double 등...)
 > .truncateRemainder(devidingBy: N)를 사용
+
+### Unicode
+- 유니코드는 16진수이다. (1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g)
+> "\u{30}" == "0"<br>"\u{30}" == "9"<br><br>"\u{41}" == "A"<br>"\u{7a}" == "z" // 대문자부터 시작하며 41 ~ 7a가 알파벳을 나타냄
+
+적용 예시
+```
+var inputValue = "1~9"
+if inputValue >= "\u{30}" && inputValue <= "\u{39}" {
+    print("숫자다")
+} else {
+    print("숫자가 아니다")
+}
+```

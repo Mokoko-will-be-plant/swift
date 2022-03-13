@@ -115,3 +115,26 @@ Bool.description // "true"
 - `.dropFrist` 첫 string값을 빼고 가져옴. (마지막도 가능)
 - `.split(seperator: "~")`
 > JS와 다르게 인자 안에 `seperator: `를 선언해줘야 하는듯?
+
+## Collection (Array, Set, Dictionary)
+
+### Array
+- 선언
+> var Arr = Array<Type>()
+```
+var StringArr = Array<String>()
+
+// in TS
+let StringArr: String[]
+```
+- 삽입
+> `.append()`를 사용. (= `push( )` )<br>`apeend(contentsOf: [])`를 통해 다른 Array를 추가 // 같은 타입 한정 (타입에 유의)
+
+- 분리
+> `.remove(at: index)`를 사용<br>removeFirst, removeAll등 다양한 옵션 제공
+
+- 배열 원소 개수
+> `.count` (= `.length` )<br>
+Arr.`count == 0` (= Arr`.isEmpty` )
+
+- ARRAY`.enumerated`를 통해 배열의 index와 value를 동시에 가져올 수 있음

@@ -102,3 +102,16 @@ if inputValue >= "\u{30}" && inputValue <= "\u{39}" {
     print("숫자가 아니다")
 }
 ```
+
+- `.description`을 통해 String으로 표현 가능 (Boolean, Number ...)
+> = String()
+
+```
+let Bool = true
+Bool.description // "true"
+```
+
+- `.last` 마지막 string 값을 가져옴
+- `.dropFrist` 첫 string값을 빼고 가져옴. (마지막도 가능)
+- `.split(seperator: "~")`
+> JS와 다르게 인자 안에 `seperator: `를 선언해줘야 하는듯?

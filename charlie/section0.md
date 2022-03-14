@@ -138,3 +138,26 @@ let StringArr: String[]
 Arr.`count == 0` (= Arr`.isEmpty` )
 
 - ARRAY`.enumerated`를 통해 배열의 index와 value를 동시에 가져올 수 있음
+
+### Set
+> 순서가 상관 없는 배열
+
+- 선언
+
+```
+var name = Set<Type>()
+```
+
+- 삽입
+> `.insert()`<br> ***같은 값은 중첩되어 들어가지 않음. 즉, Array를 Set 타입으로 변경하여 중복되는 원소 삭제 가능***
+
+- 교집합 (.intersection)
+> `Arr1.intersection(Arr2) // 배열 Arr1와 Arr2의 교집합
+
+- 합집합 (.union)
+> `Arr1.union(Arr2) // 배열 Arr1와 Arr2의 합집합
+
+- 여집합 (.subtracting)
+> `Arr1.subtracting(Arr2) // 배열 Arr1와 Arr2의 여집합
+
+- 합집합 - 교집합 (대칭차집합 `.symmetricDifference()`)

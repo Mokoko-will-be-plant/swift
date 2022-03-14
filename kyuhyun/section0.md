@@ -410,3 +410,231 @@ class GameInfo {
 	}	
 }
 ```
+
+# properties
+
+- stored property
+- lazy stored property
+    
+    ```swift
+    class MyInfo {
+    	lazy var myProfiles = [UIImage(named: "m"), ... ]
+    }
+    ```
+    
+    - 인스턴스를 생성할 때 메모리에 올라가지는 않고, 값에 접근하는 그 순간에 메모리에 올라감
+- computed property
+    - get-only property 임
+    
+    ```swift
+    class MyInfo {
+    	var isAdult: Bool {
+    		// get{}만 있는 경우 생략 가능
+    		return true
+    	}
+    
+    	var _email: ""
+    	var email: String {
+    		get {
+    			return _email
+    		}
+    		set {
+    			_email = newValue 
+    		}
+    	}
+    }
+    let myInfo = MyInfo()
+    mayInfo.email = "xxx"
+    ```
+    
+
+# init (생성자)
+
+```swift
+class MyInfo {
+	var name: String
+	var myId: String
+	
+	init(n:String, id: String) {
+		self.myname = n
+		self.myId = id
+	}
+}
+var myInfo1 = MyInfo(n: "kim", id:"abcd")
+```
+
+- 여러개의 `init` 을 같이 쑬 수 있음
+- designated initializer : 기본적인 `init` 설정
+- convenience initializer
+    - 필수조건: 다른 `init` 을 반드시 실행해야 한다
+    
+    ```swift
+    convenience init() {
+    	self.init(n: "", id: "")
+    }
+    ```
+    
+
+# deinit
+
+- 해제 시 필요한 로직 실행
+
+```swift
+class Game {
+	deinit {
+				
+	}
+}
+```
+
+- 상호참조의 경우 참조하는 인스턴스들은 모두 해제해줘야 한다.
+- 또는, 참조하는 인스턴스가 해제될때 같이 해제될 수 있도록 : `weak`
+    
+    ```swift
+    class Round {
+    	weak var gameInfo: Game?
+    }
+    ```
+    
+
+# struct
+
+- class 나 struct를 사용할 수 있음
+- value type : 값을 참조하지 않고 **복제한다**.
+    
+    ```swift
+    struct ImageType {
+    	var type = ""
+    }
+    var imageType1 = ImageType()
+    var imageType2 = ImageType1
+    ```
+    
+- 상속 불가
+
+# extension
+
+- struct, class, enum, protocol 다 사용 가능
+    
+    ```swift
+    extension Int {
+    	var oddOrEven: String {
+    		if self % 2 === 0 {
+    			return "짝수"
+    		}
+    		return "홀수"
+    	}
+    }
+    
+    3.addOrEven
+    ```
+    
+
+# protocol
+
+```swift
+protocol UserInfo {
+	var name: String { get set }
+	var age: Int { get set }
+	func isAdult() -> Bool
+}
+
+extension UserInfo {
+	func isAdult() -> Bool {
+		return true	
+	}
+}
+
+class Guest: UserInfo {
+	// protocol 구현
+}
+```
+
+- 값이 정의될 수는 없다.
+- protocol이 아닌 클래스 상속으로 대체하면, 값 구현이 강제되지 않는다.
+- protocol을 적용한 클래스들의 공통타입으로 사용할 수도 있다.
+- 여러개의 protocol을 사용할 수 있다.
+    
+    ```swift
+    protocol UserScore {}
+    
+    protocol UserDetailInfo: UserInfo, UserScore {}
+    
+    class Guest: UserInfo, UserScore {}
+    ```
+    
+
+# inheritance
+
+- class에서만 가능하다.
+- `super` 를 사용해서 부모 클래스의 값에 접근
+
+# generic
+
+```swift
+struct Stack<MyType> where MyType: Equatable {
+	var items = [MyType]()
+	
+	mutating func push(item: MyType) {
+		items.append(item)
+	}
+
+	mutating func pop() -> MyType? {
+		if items.isEmpty {
+			return nil
+		}
+		return items.removeLast()
+	}
+}
+var myStack = Stack<String>()
+```
+
+# higher order function
+
+## map
+
+```swift
+let names = ["kim", "lee", "min", "john"]
+
+let names2 = names.map { name in
+	name + "님"
+}
+```
+
+- 타입은 자유롭게 변경 가능
+
+### filter
+
+```swift
+let filterNames = names.filter { (name) -> Bool in
+	namecount > 3
+}
+```
+
+### reduce
+
+```swift
+let sumName = names.reduce("") { (first, second) in
+	return first + second
+}
+```
+
+### compactMap
+
+- `nil`, optional 제거
+
+```swift
+let numberArr = [1,2,3,4,5,nil,6,nil,8]
+numburArr.compactMap { (num) in
+	return num
+}
+```
+
+### flatMap
+
+- 2중 3중 배열을 한 뎁스로 맞춤
+
+```swift
+let numbers2 = [[1,2,3,],[4,5,6]]
+let flatNum = number2.flatMap{ $0 }
+```

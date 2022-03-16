@@ -161,3 +161,17 @@ var name = Set<Type>()
 > `Arr1.subtracting(Arr2) // 배열 Arr1와 Arr2의 여집합
 
 - 합집합 - 교집합 (대칭차집합 `.symmetricDifference()`)
+
+### Dictionary
+> var Dictionary = [Type : Type]()
+
+- 선언
+```
+var namesOfStreet = `[String : String]()`
+namesOfStreet["key 1"] = "value 1"
+namesOfStreet["key 2"] = "value 2"
+```
+- value값을 다른 타입으로 덮어쓸 수 있다 (Optinonal도 따로 선언 안해도 사용 가능) <br>// 이 후 선언에서 nil을 주면 key에 nil이 지정 되는 것이 아니라 key자체가 사라지는 개념
+
+- ${Dictionary}.keys
+> key값들을 가져올 수 있다

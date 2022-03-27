@@ -632,3 +632,278 @@ game = nil // 메모리가 해제되야 하는데 상호참조 때문에 해제�
 // 그래서 round는 game에 의존적이기 때문에 변수에 week를 걸어주면, 해제시 같이 해제가 된다.
 
 ```
+
+### Struct
+
+- struct
+  > 복제가 필요하고 상속 필요 없을 때
+- class 유용한 점
+
+  > 반대 케이스
+
+- 본인 판단해서 쓰는경우 있음
+
+```swift
+// 복제하는 개념 상속하지 않음
+
+struct ImageType {
+	var type = ""
+	var width = 0
+	var height = 0
+}
+
+var imageType1 = ImageType();
+var imageType2 = imageType1;
+var imageType3 = imageType2;
+
+imageType1.type = "jpg"
+
+imageType1.type > jpg
+imageType2.type > ""
+imageType3.type > ""
+
+
+// 각 하나의 원본이 된다.
+class MyInfo {
+	var myAge = 0
+}
+
+var info1 = MyInfo()
+var info2 = info1
+var info3 = info2
+
+info1.myAge = 20 > 20
+info2.myAge = 10 > 10
+info3.myAge > 10
+```
+
+### extension
+
+- 기능 확장
+- struct, class, enum, protocal
+- 숫자(int) 짝수, 홀수
+
+```swift
+
+class AAA {
+	func Some() {
+
+	}
+}
+
+// Int는 타입을 사용
+extension Int {
+	var oddOrEvent: String {
+		if self % 2 == 0 {
+			return "짝수"
+		}
+		return "홀수"
+	}
+}
+
+// 해당 객체로 참조 가능
+3.oddOrEvent
+
+extension UIColor {
+	class var mainColor1: UIColor {
+		UIColor(red: 50/255, green: 70/255, blue: 120/255, alpha: 1)
+	}
+	// static: 인스턴스 화 시키지 않아도 바로 사용할 수 있도록 한다!
+	static var mainColor1: UIColor {
+		UIColor(red: 50/255, green: 70/255, blue: 120/255, alpha: 1)
+	}
+}
+
+var button = UIButton()
+
+// ()를 붙인 이유는 클래스 이기 때문이다!
+button.titleLabel?.textColor = UIColor().mainColor1
+
+// 인스턴스를 시키면 () 필요없다.
+button.titleLabel?.textColor = .mainColor1
+```
+
+### Protocol
+
+```swift
+// 규격, 규약, 규칙
+
+protocol UserInfo {
+	// set 생략하면 할수도 있고 안할수도 있다.
+	var name: String { get set }
+	var age: Int { get set }
+
+	// 내용X 구조만 작성
+	func isAdult() -> Bool
+}
+
+// 중복 코드를 줄일 수 있고, 꼭 필요한 부분을 한번에 구현 가능
+extension UserInfo {
+	func isAdult() -> Bool {
+		if age > 19 {
+			return true
+		}
+		return false
+	}
+}
+
+class Guest: UserInfo {
+	// init이 없으면 값을 넣어야 함
+	var name: String = "kim"
+	var age: Int = 20
+
+}
+
+class Member: UserInfo {
+	var name: String
+	var age: Int
+
+	init(name: String, age: Int) {
+		self.name = name
+		self.age = age
+	}
+}
+
+class VIPMember: UserInfo {
+	var name: String = "lee"
+	var age: Int = 10
+}
+
+class UserInfoPresenter {
+	func present {
+		let guest = Guest()
+		let member Member(name: "jane", age: 25)
+		let vip = VIPMember()
+
+		let members: [UserInfo] = [guest, member, vip]
+
+		for element in members {
+			print(element.name)
+		}
+	}
+}
+
+let presenter = UserInfoPresenter()
+presenter.present()
+```
+
+### Inheritance
+
+```swift
+
+// 프로토콜은 구현부가 있으면 안된다!
+class UserInfo {
+	var name = ""
+	var age = 0
+
+	func isAdult() -> Bool {
+		if age > 19 {
+			return true
+		}
+		return false
+	}
+}
+
+class Guest: UserInfo {
+	// 재정의
+	override func isAdult() -> Bool {
+		return true
+	}
+
+	func present() {
+		name = "kim"
+		print(name) // -> kim
+		// 상속받은 부모클래스에 접근 가능
+		print(super.name) // -> kim
+	}
+}
+
+let guest = Guest()
+guest.present()
+```
+
+### Generic
+
+```swift
+// generic
+// 로직 반복, 타입 여러가지
+
+// stack
+// queue
+
+// 스트럭쳐는 내부에서 구현부를 구현할 수 없어서 mutation을 사용해야 함
+// where절을 걸어서 제네릭에 대한 제한을 걸 수 있음
+// Numeric or StringProtocol
+// Equatable 거의 다 되는데, Dictionary 안됌
+struct MyStack<MyPype> where MyType: Numeric {
+	var items = [MyPype]()
+
+	mutating func push(item: MyPype) {
+		items.append(item)
+	}
+
+	mutating func pop() -> MyPype? {
+		if items.isEmpty {
+			return nil
+		}
+		return items.removeLast()
+	}
+}
+
+var myStack = MyStack<Int>()
+
+myStack.push(item: 4)
+myStack.push(item: 5)
+myStack.push(item: 6)
+
+myStack.pop() // 6
+myStack.pop() // 5
+myStack.pop() // 4
+
+var myStack2 = MyStack<String>()
+myStack2.push(item: "")
+myStack.pop()
+
+```
+
+### Higher order function
+
+```swift
+let names = ["kim", "lee", "min", "john"]
+
+// map ->
+let names2 = names.map { $0 + "님" }
+
+names2 // ~님이 붙는다.
+
+let names3 = names.map{ name in
+	name.count
+}
+
+let names4 = names.map{ name in
+	name.count > 3
+}
+
+// filter -> 필요한 것만 추출
+let filterNames = names.filter{ name -> Bool in
+	name.count > 3
+}
+filterNames // ["john"]
+
+// reduce 하나로 뭉친다. 통합. 합친다.
+let sumName = names.reduce("aaaa") { $0 + $1 }
+sumName // "aaaakimleeminjohn"
+
+let numberArr = [1, 2, 3, 4, 5, nil, 6, nil, 8]
+let sumNum = numberArr.reduce(0, { $0 + ($1 ?? 0) })
+sumNum // 29
+
+// compactMap -> numberArr nil값 optional 값 없앨 수 있음
+let numbers = numberArr.compactMap { $0 }
+numbers // [1, 2, 3, 4, 5, 6, 8]
+
+// flatMap
+let numbers2 = [[1,2,3], [4,5,6]]
+let flatNum = numbers2.flatMap{ $0 }
+flatNum // [1, 2, 3, 4, 5, 6]
+```

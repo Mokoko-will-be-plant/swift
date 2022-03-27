@@ -59,7 +59,7 @@
 
 ## PassingData_3
 
-- instance 직접접근 (양방향 바인딩 가능)
+- instance 직접접근 (양방향 바인딩 가능) ( 자식 > 부모 )
 
 ```swift
 
@@ -81,9 +81,38 @@
 
 ## PassingData_4
 
-- delegate (delegation) pattern 대리 위임 대신
+- delegate (delegation) pattern 대리 위임 대신 ( 자식 > 부모 )
 
 ```swift
+    // Send
+    @IBAction func moveToDelegage(_ sender: Any) {
+         let detailVC = DelegateDetailViewControllerDelegate(nibName: "DelegateDetailViewControllerDelegate", bundle: nil)
+
+        // 위에 인스턴스는 모든 것을 넘겨주는데에 비해, 해당 protocol 방식은 아래 Extension되는 부분만 넘겨줄 수 있도록 되어 있음!
+        detailVC.delegate = self
+
+        self.present(detailVC, animted: true, completion: nil)
+    }
+
+    // important!!!
+    extension ViewController: DelegateDetailViewControllerDelegate {
+        func passString(string: String) {
+            self.dataLabel.text = string
+        }
+    }
+
+    // Receive
+    protocol DelegateDetailViewControllerDelegate: AnyObject {
+        func passString(string: String)
+    }
+
+    class DelegateDetailViewController: UIViewController {
+        weak var delegate: DelegateDetailViewControllerDelegate?
+
+        @IBAction func passDataToMainVC(_ sender: Any) {
+            delegate?.passString(string: "delegate pass Data")
+        }
+    }
 
 ```
 

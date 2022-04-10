@@ -118,8 +118,34 @@
 
 ## PassingData_5
 
-```swift
+- Closure로 데이터를 넘기는 방식
 
+```swift
+    @IBAction func moveToClosure(_ sender:Any) {
+        let detailVC = ClosureDetailViewController(nibName: "ClosureDetailViewController", bundle: nil)
+
+        // 구현부는 여기 있음!
+        detailVC.myClosure = { str in
+            self.dataLabel.text = str
+        }
+
+        self.present(detailVC, animated: true, completion: nil)
+    }
+
+
+    class ClosureDetailViewController: UIViewController {
+
+        var myClosure: ((String) -> Void)? // delegate, 리턴도 없는 타입
+
+        override func viewDidLoad() {
+            super.viewDidLoad()
+        }
+
+        @IBAction func closurePassData(_ sender: Any) {
+            myClosure?("closure string") // 호출하는게 없을 수도 있기 떄문에 옵셔널
+            self.dismiss(animated: true, completion: nil) // 돌아가면서 상위에 데이터 패싱하는 부분을 보여줌
+        }
+    }
 ```
 
 ## PassingData_6

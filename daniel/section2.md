@@ -150,6 +150,56 @@
 
 ## PassingData_6
 
-```swift
+- Notification
+- 다른거는 detailControll 인스턴스 만들어서 접근하도록 하지만 Notification은 연결점 없어도 호출 가능 !!!
 
+```swift
+    class ViewController: UIViewController {
+        override func viewDidLoad() {
+            super.viewDidLoad()
+
+            let notificationName = Notification.Name("sendSomeString")
+
+            // 주의사항 addObserver가 2개라면 2번이 작동 되도록 되어 있음! 중복되서 사용하지 않도록 하자 name
+            notificationName.default.addObserver(self, selector: #selector(showSomeString), name: notificationName, object: nil)
+
+            notificationName.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keboardWillShowNotification, object: nil)
+
+            // 사용하지 않으면 removeObserver 발행!
+            notificationName.default.removeObserver(self, name: notificationName, object: nil)
+
+        }
+
+        @objc func showSomgString(notification: Notification) {
+            if let str = notification.userInfo?["str"] as? String {
+                self.dataLabel.text = str
+            }
+        }
+
+        @objc func keyboardWillShow(notification: Notification) {
+            print("will show")
+        }
+
+
+        @IBAction func moveToNoti(_ sender: Any) {
+            let detailVC = ClosureDetailViewController(nibName: "ClosureDetailViewController", bundle: nil)
+
+            self.present(detailVC, animated: true, completion: nil)
+        }
+    }
+
+    class NotiDetailViewController: UIViewController {
+        override func viewDidLoad() {
+            super.viewDidLoad()
+        }
+
+        @IBAction func notiAction(_ sender: Any) {
+            let notificationName = Notification.Name("sendSomeString")
+
+            let strDic = ["str" : "noti string"]
+            NotificationCenter.default.post(name: notificationName, object: nil, userInfo: strDic)
+
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 ```
